@@ -14,3 +14,13 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
+
+// runApp -> _runWidget -> scheduleAttachRootWidget(WidgetsBinding) -> scheduleWarmUpFrame(WidgetsBinding)
+
+
+调用WidgetsBinding 的 wrapWithDefaultView方法 
+生一个View对象，这个对象持有一个FlutterView对象，
+PipelineOwner 对象_ReusableRenderView(RenderView) 对象和 Your_Widget;

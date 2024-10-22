@@ -6,7 +6,7 @@ import 'course_download_progress.dart';
 import 'home_page.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp( Center(child: Container(width: 100,height: 100,color: Colors.black,)));
 }
 
 class MyApp extends StatefulWidget {
