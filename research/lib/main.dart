@@ -1,12 +1,40 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:research/dd_dart.dart';
 
 import 'course_download_progress.dart';
 import 'home_page.dart';
 
 void main() {
+  final dd = Entry.test();
   runApp( Center(child: Container(width: 100,height: 100,color: Colors.black,)));
+}
+
+
+
+
+void queueTest(){
+  Timer.run(() { print("executed"); });  // Will never be executed.
+  foo() {
+    scheduleMicrotask(foo);  // Schedules [foo] in front of other events.
+  }
+  foo();
+  Future.delayed(Duration.zero).then((onValue){
+    print('Future0000');
+  });
+  Timer(Duration.zero, () {
+    print('0001');
+  });
+  Timer.run((){
+    print('run0000');
+  });
+  Timer.run((){
+    print('run0001');
+  });
+  scheduleMicrotask((){
+    print('scheduleMicrotask');
+  });
 }
 
 class MyApp extends StatefulWidget {
