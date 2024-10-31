@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:research/dd_dart.dart';
+import 'package:research/shader_demo/ui/shaders_list.dart';
 import 'package:research/vs_read/visibility_detector.dart';
 
 import 'course_download_progress.dart';
@@ -9,17 +11,53 @@ import 'home_page.dart';
 
 void main() {
   final dd = Entry.test();
-  runApp(VisibilityDetector(
-      key: const Key('me_page_widget_key'),
-      onVisibilityChanged: (VisibilityInfo info) {
-        // 完全出现才刷新
-        if (info.visibleFraction == 1.0) {}
-      },
-      child: Container(
-        width: 100,
-        height: 100,
-        color: Colors.black,
-      )));
+  WidgetsBinding.instance.addPostFrameCallback((d){
+    print('addPostFrameCallback ${d.inMilliseconds}');
+  });
+  WidgetsBinding.instance.addPersistentFrameCallback((d){
+    print('addPersistentFrameCallback ${d.inMilliseconds}');
+  });
+
+  SchedulerBinding.instance.scheduleFrameCallback((d){
+    print('scheduleFrameCallback ${d.inMilliseconds}');
+  });
+  SchedulerBinding.instance.scheduleTask<void>(
+        (){
+      print('scheduleTask');
+    },
+    Priority.touch,
+  );
+
+  runApp(HomePage());
+
+  // runApp(VisibilityDetector(
+  //     key: const Key('me_page_widget_key'),
+  //     onVisibilityChanged: (VisibilityInfo info) {
+  //       // 完全出现才刷新
+  //       if (info.visibleFraction == 1.0) {}
+  //     },
+  //     child: Container(
+  //       width: 100,
+  //       height: 100,
+  //       color: Colors.black,
+  //       child: MaterialApp(home: Scaffold(body: ShadersList())),
+  //     )));
+
+  // WidgetsBinding.instance.addPersistentFrameCallback((d) {
+  //   print('addPersistentFrameCallback ${d.inMilliseconds}');
+  // });
+  // WidgetsBinding.instance.addPostFrameCallback((d) {
+  //   print('addPostFrameCallback ${d.inMilliseconds}');
+  // });
+  // SchedulerBinding.instance.scheduleFrameCallback((d) {
+  //   print('scheduleFrameCallback ${d.inMilliseconds}');
+  // });
+  // SchedulerBinding.instance.scheduleTask<void>(
+  //   () {
+  //     print('scheduleTask');
+  //   },
+  //   Priority.touch,
+  // );
 }
 
 void queueTest() {
