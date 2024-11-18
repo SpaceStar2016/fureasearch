@@ -289,7 +289,9 @@ class RenderVisibilityDetector extends RenderProxyBox
   final Key key;
 
   @override
-  Rect? get bounds => hasSize ? semanticBounds : null;
+  Rect? get bounds {
+    return hasSize ? semanticBounds : null;
+  }
 }
 
 /// The [RenderObject] corresponding to the [SliverVisibilityDetector] widget.

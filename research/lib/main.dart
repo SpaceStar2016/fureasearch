@@ -11,37 +11,38 @@ import 'home_page.dart';
 
 void main() {
   final dd = Entry.test();
-  WidgetsBinding.instance.addPostFrameCallback((d){
-    print('addPostFrameCallback ${d.inMilliseconds}');
-  });
-  WidgetsBinding.instance.addPersistentFrameCallback((d){
-    print('addPersistentFrameCallback ${d.inMilliseconds}');
-  });
+  // WidgetsBinding.instance.addPostFrameCallback((d){
+  //   print('addPostFrameCallback ${d.inMilliseconds}');
+  // });
+  // WidgetsBinding.instance.addPersistentFrameCallback((d){
+  //   print('addPersistentFrameCallback ${d.inMilliseconds}');
+  // });
+  //
+  // SchedulerBinding.instance.scheduleFrameCallback((d){
+  //   print('scheduleFrameCallback ${d.inMilliseconds}');
+  // });
+  // SchedulerBinding.instance.scheduleTask<void>(
+  //       (){
+  //     print('scheduleTask');
+  //   },
+  //   Priority.touch,
+  // );
 
-  SchedulerBinding.instance.scheduleFrameCallback((d){
-    print('scheduleFrameCallback ${d.inMilliseconds}');
-  });
-  SchedulerBinding.instance.scheduleTask<void>(
-        (){
-      print('scheduleTask');
+  // runApp(MaterialApp(home: HomePage()));
+  // 解决这个问题
+  runApp(VisibilityDetector(
+    key: const Key('me_page_widget_key'),
+    onVisibilityChanged: (VisibilityInfo info) {
+      print('---${info.size}---${info.visibleFraction}');
+      // 完全出现才刷新
+      if (info.visibleFraction == 1.0) {}
     },
-    Priority.touch,
-  );
-
-  runApp(HomePage());
-
-  // runApp(VisibilityDetector(
-  //     key: const Key('me_page_widget_key'),
-  //     onVisibilityChanged: (VisibilityInfo info) {
-  //       // 完全出现才刷新
-  //       if (info.visibleFraction == 1.0) {}
-  //     },
-  //     child: Container(
-  //       width: 100,
-  //       height: 100,
-  //       color: Colors.black,
-  //       child: MaterialApp(home: Scaffold(body: ShadersList())),
-  //     )));
+    child: Container(
+      width: 100,
+      height: 100,
+      color: Colors.yellow,
+    ),
+  ));
 
   // WidgetsBinding.instance.addPersistentFrameCallback((d) {
   //   print('addPersistentFrameCallback ${d.inMilliseconds}');

@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:research/page/page_one.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,49 +11,42 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((d){
-    //   print('addPostFrameCallback ${d.inMilliseconds}');
-    // });
-    // WidgetsBinding.instance.addPersistentFrameCallback((d){
-    //   print('addPersistentFrameCallback ${d.inMilliseconds}');
-    // });
-    //
-    // SchedulerBinding.instance.scheduleFrameCallback((d){
-    //   print('scheduleFrameCallback ${d.inMilliseconds}');
-    // });
-    // SchedulerBinding.instance.scheduleTask<void>(
-    //       (){
-    //     print('scheduleTask');
-    //   },
-    //   Priority.touch,
-    // );
+    print('~~initState');
+  }
+
+  @override
+  void didUpdateWidget(covariant HomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('~~didChangeDependencies');
   }
 
   int count = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    print('~~~~build');
+    return  Scaffold(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('count${count}'),
             GestureDetector(
-              onTap: (){
-                count++;
-                setState(() {});
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => PageOne()));
               },
-              child: Text(
-                '点我'
-              ),
+              child: Text('点我'),
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }
-

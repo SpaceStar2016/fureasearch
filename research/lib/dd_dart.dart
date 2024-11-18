@@ -9,9 +9,11 @@ LoudSoundMixin02::: loud
 LoudSoundMixin03::: loud
 LoudSoundMixin04::: loud
 * */
-    final dog = Dog();
-    final student = Student(score: '98');
+    // final dog = Dog();
+    // final student = Student(score: '98');
     final teacher = Teacher(name:  'Space', score: '100');
+    // teacher.makeHair();
+    teacher.teachHaircut();
   }
 }
 
@@ -98,11 +100,14 @@ class Snake extends Animal {}
 // 换句话说，implements 是用来表示 "实现接口" 的，它强制类提供接口中所有成员的具体实现，而不会继承接口的实现。
 
 
-
 abstract class Person {
   final String name;
   Person({required this.name}){
     print('I am person');
+  }
+  @override
+  teachHaircut(){
+    print('Person ---- teachHaircut');
   }
 }
 
@@ -124,10 +129,34 @@ class Student extends Person {
   // 选择使用哪种参数类型取决于具体的使用场景和需求。
 }
 
-class Teacher extends Person {
+class Teacher extends Person with NiceHair {
 
   final String score;
   Teacher({required this.score, required super.name}){
     print('I am Student');
   }
+
+  @override
+  teachHaircut(){
+    super.teachHaircut();
+    print('Teacher ---- teachHaircut');
+  }
+
+}
+
+
+
+
+
+mixin NiceHair on Person {
+  void makeHair(){
+    print("NiceHair ---- makeHair");
+  }
+
+  @override
+  void teachHaircut(){
+    super.teachHaircut();
+    print('NiceHair ::: teachHaircut');
+  }
+
 }
