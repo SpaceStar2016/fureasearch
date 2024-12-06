@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
   final ww = Container(
@@ -7,7 +8,8 @@ void main() {
     color: Colors.yellow,
   );
   const bb = BeautyWidget();
-  runApp(bb);
+  const bbb = BeautyRenderObjectWidget();
+  runApp(bbb);
   print('run end');
 }
 
@@ -51,29 +53,29 @@ class _BeautyWidgetState extends State<BeautyWidget> {
     //   ),
     // );
 
-    return showYellowContainer
-        ? GestureDetector(
-            onTap: () {
-              showYellowContainer = !showYellowContainer;
-              setState(() {});
-            },
-            child: Container(
-              width: 100,
-              height: 100,
-              color: Colors.yellow,
-            ),
-          )
-        : GestureDetector(
-            onTap: () {
-              showYellowContainer = !showYellowContainer;
-              setState(() {});
-            },
-            child: Container(
-              width: 100,
-              height: 100,
-              color: Colors.green,
-            ),
-          );
+    // return showYellowContainer
+    //     ? GestureDetector(
+    //         onTap: () {
+    //           showYellowContainer = !showYellowContainer;
+    //           setState(() {});
+    //         },
+    //         child: Container(
+    //           width: 100,
+    //           height: 100,
+    //           color: Colors.yellow,
+    //         ),
+    //       )
+    //     : GestureDetector(
+    //         onTap: () {
+    //           showYellowContainer = !showYellowContainer;
+    //           setState(() {});
+    //         },
+    //         child: Container(
+    //           width: 100,
+    //           height: 100,
+    //           color: Colors.green,
+    //         ),
+    //       );
 
     Container(
       child: Text('12312'),
@@ -112,3 +114,31 @@ class _BeautyWidgetState extends State<BeautyWidget> {
     print('didUpdateWidget');
   }
 }
+
+class BeautyRenderObjectWidget extends SingleChildRenderObjectWidget {
+  const BeautyRenderObjectWidget({super.key,super.child});
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    return BeautyRenderObjectRenderBox();
+  }
+}
+
+class BeautyRenderObjectRenderBox extends RenderBox with RenderObjectWithChildMixin<RenderBox> {
+  @override
+  void performLayout() {
+    if (child != null) {
+      child!.layout(constraints);
+      size = child!.size;
+    }  else {
+      size = const Size(50, 50);
+    }
+  }
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    if (child != null) {
+      context.paintChild(child!, offset);
+    }
+  }
+}
+
+
