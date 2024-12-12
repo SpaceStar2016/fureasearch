@@ -18,7 +18,7 @@ void main() {
       color: Colors.red,
     ),),
   );
-  runApp(bbb);
+  runApp(bb);
   print('run end');
 }
 
@@ -86,7 +86,7 @@ class _BeautyWidgetState extends State<BeautyWidget> {
     //         ),
     //       );
 
-    Center(
+    return Center(
       child: Container(
         child: Text('12312'),
       ),
