@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 //
@@ -143,71 +143,3 @@
 // }
 //
 //
-=======
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
-void main() {
-  // runApp(
-  //   Container(
-  //     height: 50,
-  //     width: 50,
-  //     color: Colors.yellow,
-  //   ),
-  // );
-
-
-  runApp(
-    ConstrainedBox(
-      constraints: const BoxConstraints.tightFor(width: 50, height: 50),
-      child: ColoredBox(
-        color: Colors.yellow,
-      ),
-    ),
-  );
-
-  runApp(
-    MyConstrainedBox(
-      constraints: const BoxConstraints.tightFor(width: 50, height: 50),
-      child: ColoredBox(
-        color: Colors.yellow,
-      ),
-    ),
-  );
-}
-
-
-class MyConstrainedBox extends SingleChildRenderObjectWidget {
-
-  final BoxConstraints constraints;
-
-  const MyConstrainedBox({required this.constraints, super.key, super.child});
-
-  @override
-  RenderObject createRenderObject(BuildContext context) {
-    return MyConstrainedBoxRenderObject();
-  }
-
-}
-
-class MyConstrainedBoxRenderObject extends RenderBox with RenderObjectWithChildMixin<RenderBox>{
-
-  @override
-  void performLayout() {
-    print('${constraints}');
-    if( child!= null ){
-      child!.layout(BoxConstraints.tight(const Size(50,50)));
-      size = child!.size;
-    }else {
-      size = const Size(50, 50);
-    }
-  }
-
-  @override
-  void paint(PaintingContext context, Offset offset) {
-    if(child != null) {
-      context.paintChild(child!, offset);
-    }
-  }
-}
->>>>>>> e840105 (465654564)
