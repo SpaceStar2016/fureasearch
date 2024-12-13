@@ -3,62 +3,80 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 void main() {
-  // runApp(
-  //   Container(
-  //     width: 50,
-  //     height: 50,
-  //     color: Colors.yellow,
-  //   ),
-  // );
-
   runApp(
-    ConstrainedBox(
-      constraints: const BoxConstraints.tightFor(width: 50, height: 50),
-      child: ColoredBox(
-        color: Colors.black,
-      ),
-    ),
+    const AColorWidget(),
   );
-
-  // runApp(
-  //   MyConstrainedBox(
-  //     constraints: const BoxConstraints.tightFor(width: 50, height: 50),
-  //     child: ColoredBox(
-  //       color: Colors.black,
-  //     ),
-  //   ),
-  // );
 }
 
-class MyConstrainedBox extends SingleChildRenderObjectWidget {
-  final BoxConstraints constraints;
-  const MyConstrainedBox({super.key, super.child, required this.constraints});
+class AColorWidget extends StatefulWidget {
+  const AColorWidget({super.key});
+
   @override
-  RenderObject createRenderObject(BuildContext context) {
-    return MyConstrainedBoxRenderBox();
+  State<AColorWidget> createState() => _AColorWidgetState();
+}
+
+class _AColorWidgetState extends State<AColorWidget> {
+  bool isChange = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        isChange = !isChange;
+        setState(() {});
+      },
+      child: Center(
+        child: isChange ? const YellowContainer() : const BlackContainer(),
+      ),
+    );
+  }
+
+}
+
+class YellowContainer extends StatefulWidget {
+  const YellowContainer({super.key});
+
+  @override
+  State<YellowContainer> createState() => _YellowContainerState();
+}
+
+class _YellowContainerState extends State<YellowContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 50,
+      height: 50,
+      color: Colors.yellow,
+    );
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    print('YellowContainer dispose');
   }
 }
 
-class MyConstrainedBoxRenderBox extends RenderBox
-    with RenderObjectWithChildMixin<RenderBox> {
+class BlackContainer extends StatefulWidget {
+  const BlackContainer({super.key});
 
-  // @override
-  // final BoxConstraints constraints;
-
-  MyConstrainedBoxRenderBox();
   @override
-  void performLayout() {
-    if (child != null) {
-      child!.layout(constraints);
-      size = child!.size;
-    } else {
-      size = const Size(50, 50);
-    }
+  State<BlackContainer> createState() => _BlackContainerState();
+}
+
+class _BlackContainerState extends State<BlackContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 50,
+      height: 50,
+      color: Colors.black,
+    );
   }
   @override
-  void paint(PaintingContext context, Offset offset) {
-    if (child != null) {
-      context.paintChild(child!, offset);
-    }
+  void dispose() {
+    super.dispose();
+    print('BlackContainer dispose');
   }
 }
+
+
