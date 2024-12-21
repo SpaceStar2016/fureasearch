@@ -1,2 +1,0 @@
-
-// RenderObjectElement 通过mounted 调用createRenderObject 生成RenderObject
